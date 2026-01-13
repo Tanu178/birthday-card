@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy 19th Birthday</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Orbitron', sans-serif;
+      height: 100vh;
+      overflow: hidden;
+      background: linear-gradient(135deg, #000000, #222222, #555555);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      color: #ffffff;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .screen {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 28px;
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(20px) scale(0.95);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+      z-index: 1;
+    }
+
+    .screen.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+
+    h1, h2 {
+      font-family: 'Playfair Display', serif;
+      text-shadow: 0 0 8px rgba(255,255,255,0.6);
+      margin-bottom: 16px;
+    }
+
+    h1 { font-size: 2.8rem; }
+    h2 { font-size: 1.6rem; opacity: 0.95; }
+
+    p {
+      font-size: 1rem;
+      line-height: 1.7;
+      max-width: 360px;
+      text-shadow: 0 0 4px rgba(255,255,255,0.5);
+    }
+
+    button {
+      margin-top: 32px;
+      padding: 14px 36px;
+      border-radius: 30px;
+      border: 2px solid #ffffff;
+      background: transparent;
+      color: #ffffff;
+      font-weight: 700;
+      font-family: 'Orbitron', sans-serif;
+      cursor: pointer;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    button:hover {
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.45);
+    }
+
+    .big-number {
+      font-size: 10rem;
+      font-family: 'Orbitron', sans-serif;
+      color: #ffffff;
+      text-shadow: 0 0 12px rgba(255,255,255,0.7);
+      animation: bounceIn 1.8s cubic-bezier(.34,1.56,.64,1);
+    }
+
+    @keyframes bounceIn {
+      from { transform: scale(0.5) rotate(-10deg); opacity: 0; }
+      to { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+
+    .photo img {
+      width: 100%;
+      border-radius: 16px;
+      border: 2px solid #ffffff;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      filter: grayscale(100%);
+    }
+
+    .caption {
+      margin-top: 10px;
+      font-size: 0.95rem;
+      opacity: 0.95;
+      text-shadow: 0 0 4px rgba(255,255,255,0.5);
+    }
+
+    .music-toggle {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(6px);
+      font-size: 0.85rem;
+      cursor: pointer;
+      z-index: 5;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      animation: fall 3s linear forwards;
+      background: #ffffff;
+    }
+
+    @keyframes fall {
+      to { transform: translateY(120vh) rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <audio id="bgMusic" src="music/song.mp3" loop></audio>
+  <div class="music-toggle" onclick="toggleMusic()">🎶 Music</div>
+
+  <section class="screen active" id="screen1">
+    <h1>Happy Birthday ✨</h1>
+    <h2>My Favorite Person 💖</h2>
+    <button onclick="nextScreen(1)">Begin 🖤</button>
+  </section>
+
+  <section class="screen" id="screen2">
+    <div class="big-number">19</div>
+    <p>A year worth celebrating ✨</p>
+    <button onclick="nextScreen(2)">Continue 🖤</button>
+  </section>
+
+  <section class="screen" id="screen3">
+    <p>
+      You bring so much love, laughter, and light into my life.
+      I am endlessly grateful for you and every memory we share.
+    </p>
+    <button onclick="nextScreen(3)">Memories 🖤</button>
+  </section>
+
+  <!-- Individual photo slides -->
+  <section class="screen" id="screen4">
+    <img class="photo" src="images/pic1.jpg" alt="Photo 1">
+    <div class="caption">One of my favorite days 🖤</div>
+    <button onclick="nextScreen(4)">Next 🖤</button>
+  </section>
+  <section class="screen" id="screen5">
+    <img class="photo" src="images/pic2.jpg" alt="Photo 2">
+    <div class="caption">Forever grateful for this 🖤</div>
+    <button onclick="nextScreen(5)">Next 🖤</button>
+  </section>
+  <section class="screen" id="screen6">
+    <img class="photo" src="images/pic3.jpg" alt="Photo 3">
+    <div class="caption">Still makes me smile 🖤</div>
+    <button onclick="nextScreen(6)">Next 🖤</button>
+  </section>
+  <section class="screen" id="screen7">
+    <img class="photo" src="images/pic4.jpg" alt="Photo 4">
+    <div class="caption">Us, always 🖤</div>
+    <button onclick="nextScreen(7)">Next 🖤</button>
+  </section>
+  <section class="screen" id="screen8">
+    <img class="photo" src="images/pic5.jpg" alt="Photo 5">
+    <div class="caption">A core memory 🖤</div>
+    <button onclick="nextScreen(8)">Next 🖤</button>
+  </section>
+  <section class="screen" id="screen9">
+    <img class="photo" src="images/pic6.jpg" alt="Photo 6">
+    <div class="caption">Couldn’t imagine this without you 🖤</div>
+    <button onclick="nextScreen(9)">Next 🖤</button>
+  </section>
+  <section class="screen" id="screen10">
+    <img class="photo" src="images/pic7.jpg" alt="Photo 7">
+    <div class="caption">Forever my favorite person 🖤</div>
+    <button onclick="nextScreen(10)">Next 🖤</button>
+  </section>
+  <section class="screen" id="screen11">
+    <img class="photo" src="images/pic8.jpg" alt="Photo 8">
+    <div class="caption">This one means a lot 🖤</div>
+    <button onclick="nextScreen(11)">Next 🖤</button>
+  </section>
+  <section class="screen" id="screen12">
+    <img class="photo" src="images/pic9.jpg" alt="Photo 9">
+    <div class="caption">One for the memories 🖤</div>
+    <button onclick="nextScreen(12)">Next 🖤</button>
+  </section>
+  <section class="screen" id="screen13">
+    <img class="photo" src="images/pic10.jpg" alt="Photo 10">
+    <div class="caption">Always us 🖤</div>
+    <button onclick="nextScreen(13)">Finish 🖤</button>
+  </section>
+
+  <section class="screen" id="screen14">
+    <h1>You mean the world to me 🖤</h1>
+    <p>Happy 19th Birthday, always.</p>
+  </section>
+
+  <script>
+    const music = document.getElementById('bgMusic');
+    let musicPlaying = false;
+
+    function nextScreen(current) {
+      document.getElementById(`screen${current}`).classList.remove('active');
+      document.getElementById(`screen${current + 1}`).classList.add('active');
+
+      if (!musicPlaying) {
+        music.volume = 0.5;
+        music.play();
+        musicPlaying = true;
+      }
+
+      if (current >= 4 && current <= 13) launchConfetti();
+    }
+
+    function toggleMusic() {
+      music.paused ? music.play() : music.pause();
+    }
+
+    function launchConfetti() {
+      for (let i = 0; i < 80; i++) {
+        const conf = document.createElement('div');
+        conf.className = 'confetti';
+        conf.style.left = Math.random() * 100 + 'vw';
+        conf.style.animationDuration = 2.5 + Math.random()*2 + 's';
+        document.body.appendChild(conf);
+        setTimeout(() => conf.remove(), 4000);
+      }
+    }
+  </script>
+
+</body>
+</html>
